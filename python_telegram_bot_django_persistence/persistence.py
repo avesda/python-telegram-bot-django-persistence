@@ -1,4 +1,4 @@
-import simplejson as json
+import json
 from typing import cast
 
 from .models import BotData, CallbackData, ChatData, ConversationData, UserData
@@ -77,7 +77,7 @@ class DjangoPersistence(BasePersistence[UD, CD, BD]):
 
     async def get_conversations(self, name: str) -> ConversationDict:
         return {
-            tuple(json.loads(data.key, use_decimal=True)): data.state
+            tuple(json.loads(data.key)): data.state
             async for data in ConversationData.objects.filter(namespace=self._namespace, name=name)
         }
 
@@ -85,7 +85,7 @@ class DjangoPersistence(BasePersistence[UD, CD, BD]):
         await ConversationData.objects.aupdate_or_create(
             namespace=self._namespace,
             name=name,
-            key=json.dumps(key, sort_keys=True, use_decimal=True),
+            key=json.dumps(key, sort_keys=True),
             defaults={"state": new_state},
         )
 
