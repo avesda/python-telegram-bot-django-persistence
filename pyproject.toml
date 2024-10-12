@@ -24,6 +24,7 @@ packages = [
 python = "^3.10"
 Django = ">=5.0"
 django-stubs = "^5.0.4"
+simplejson = "^3.19.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = ">=0.5.7,<0.7.0"
